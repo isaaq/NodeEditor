@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
+import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 
 dotenv.config()
 
@@ -90,6 +91,7 @@ function getModuleName(id: string): string {
 }
 
 const DEV_SERVER_COMFYUI_URL = process.env.DEV_SERVER_COMFYUI_URL || 'http://127.0.0.1:8188'
+const DEV_SERVER_KR_URL = process.env.DEV_SERVER_KR_URL || 'http://127.0.0.1:3000'
 
 export default defineConfig({
   base: '',
@@ -98,21 +100,23 @@ export default defineConfig({
       '/internal': {
         target: DEV_SERVER_COMFYUI_URL,
       },
-
       '/api': {
-        target: DEV_SERVER_COMFYUI_URL,
-        // Return empty array for extensions API as these modules
-        // are not on vite's dev server.
-        bypass: (req, res, options) => {
-          if (req.url === '/api/extensions') {
-            res.end(JSON.stringify([]))
-          }
-          return null
-        },
+        target: DEV_SERVER_KR_URL,
+        changeOrigin: true,
+        configure: (proxy, options) => {
+          proxy.on('error', (err, req, res) => {
+            console.log('proxy error', err);
+          });
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            console.log('Sending Request:', req.method, req.url);
+          });
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            console.log('Received Response:', proxyRes.statusCode, req.url);
+          });
+        }
       },
-
       '/ws': {
-        target: DEV_SERVER_COMFYUI_URL,
+        target: 'ws://localhost:3001',
         ws: true
       },
 
@@ -133,7 +137,7 @@ export default defineConfig({
 
     Components({
       dts: true,
-      resolvers: [IconsResolver()],
+      resolvers: [IconsResolver(), PrimeVueResolver()],
       dirs: ['src/components', 'src/layout', 'src/views'],
       deep: true,
       extensions: ['vue']
@@ -170,7 +174,7 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      '@': '/src'
+      '@': path.resolve(__dirname, './src')
     }
   },
 

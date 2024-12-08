@@ -19,7 +19,7 @@ import GlobalDialog from '@/components/dialog/GlobalDialog.vue'
 const isLoading = computed<boolean>(() => useWorkspaceStore().spinner)
 
 onMounted(() => {
-  window['__COMFYUI_FRONTEND_VERSION__'] = config.app_version
-  console.log('ComfyUI Front-end version:', config.app_version)
+  window['__KRNODEEDITOR_FRONTEND_VERSION__'] = config.app_version
+  console.log('KrNodeEditor Front-end version:', config.app_version)
 })
 </script>

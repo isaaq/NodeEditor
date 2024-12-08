@@ -1,6 +1,6 @@
 import { ComfyLogging } from './logging'
 import { ComfyWidgetConstructor, ComfyWidgets, initWidgets } from './widgets'
-import { ComfyUI, $el } from './ui'
+import { KrNodeEditor, $el } from './ui'
 import { api } from './api'
 import { defaultGraph } from './defaultGraph'
 import {
@@ -107,7 +107,7 @@ export class ComfyApp {
   }
 
   vueAppReady: boolean
-  ui: ComfyUI
+  ui: KrNodeEditor
   logging: ComfyLogging
   extensions: ComfyExtension[]
   extensionManager: ExtensionManager
@@ -147,7 +147,7 @@ export class ComfyApp {
 
   constructor() {
     this.vueAppReady = false
-    this.ui = new ComfyUI(this)
+    this.ui = new KrNodeEditor(this)
     this.logging = new ComfyLogging(this)
     this.workflowManager = new ComfyWorkflowManager(this)
     this.bodyTop = $el('div.comfyui-body-top', { parent: document.body })
@@ -1647,6 +1647,12 @@ export class ComfyApp {
       }
     })
 
+    api.addEventListener('workflow', ({ detail }) => {
+      if (detail.data) {
+        this.loadGraphData(detail.data, true, true)
+      }
+    })
+
     api.addEventListener('execution_start', ({ detail }) => {
       this.lastExecutionError = null
       this.graph.nodes.forEach((node) => {
@@ -1973,7 +1979,7 @@ export class ComfyApp {
 
   resizeCanvas() {
     // Limit minimal scale to 1, see https://github.com/comfyanonymous/ComfyUI/pull/845
-    const scale = Math.max(window.devicePixelRatio, 1)
+    const scale = Math.max(window.devicePixelRatio ?? 1, 1)
 
     // Clear fixed width and height while calculating rect so it uses 100% instead
     this.canvasEl.height = this.canvasEl.width = NaN

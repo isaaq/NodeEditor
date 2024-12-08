@@ -337,7 +337,7 @@ class ComfyList {
   }
 }
 
-export class ComfyUI {
+export class KrNodeEditor {
   app: ComfyApp
   dialog: _ComfyDialog
   settings: ComfySettingsDialog
@@ -702,8 +702,8 @@ export class ComfyUI {
 
   setStatus(status) {
     this.queueSize.textContent =
-      'Queue size: ' + (status ? status.exec_info.queue_remaining : 'ERR')
-    if (status) {
+      'Queue size: ' + (status?.exec_info?.queue_remaining ?? 'ERR')
+    if (status?.exec_info) {
       if (
         this.lastQueueSize != 0 &&
         status.exec_info.queue_remaining == 0 &&

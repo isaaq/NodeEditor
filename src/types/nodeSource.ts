@@ -13,15 +13,15 @@ export type NodeSource = {
 
 const UNKNOWN_NODE_SOURCE: NodeSource = {
   type: NodeSourceType.Unknown,
-  className: 'comfy-unknown',
+  className: 'kr-unknown',
   displayText: 'Unknown',
   badgeText: '?'
 }
 
 const shortenNodeName = (name: string) => {
   return name
-    .replace(/^(ComfyUI-|ComfyUI_|Comfy-|Comfy_)/, '')
-    .replace(/(-ComfyUI|_ComfyUI|-Comfy|_Comfy)$/, '')
+    .replace(/^(KrNodeEditor-|KrNodeEditor_|Kr-|Kr_)/, '')
+    .replace(/(-KrNodeEditor|_KrNodeEditor|-Kr|_Kr)$/, '')
 }
 
 export const getNodeSource = (python_module?: string): NodeSource => {
@@ -32,15 +32,15 @@ export const getNodeSource = (python_module?: string): NodeSource => {
   if (['nodes', 'comfy_extras'].includes(modules[0])) {
     return {
       type: NodeSourceType.Core,
-      className: 'comfy-core',
-      displayText: 'Comfy Core',
+      className: 'kr-core',
+      displayText: 'KrNodeEditor Core',
       badgeText: '🦊'
     }
   } else if (modules[0] === 'custom_nodes') {
     const displayName = shortenNodeName(modules[1])
     return {
       type: NodeSourceType.CustomNodes,
-      className: 'comfy-custom-nodes',
+      className: 'kr-custom-nodes',
       displayText: displayName,
       badgeText: displayName
     }

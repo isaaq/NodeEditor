@@ -11,7 +11,7 @@ import { useWorkflowStore } from '@/stores/workflowStore'
 import { useTitle } from '@vueuse/core'
 import { computed } from 'vue'
 
-const DEFAULT_TITLE = 'ComfyUI'
+const DEFAULT_TITLE = 'KrNodeEditor'
 const executionStore = useExecutionStore()
 const executionText = computed(() =>
   executionStore.isIdle ? '' : `[${executionStore.executionProgress}%]`

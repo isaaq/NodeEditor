@@ -194,7 +194,7 @@ onMounted(() => {
   try {
     init()
   } catch (e) {
-    console.error('Failed to init ComfyUI frontend', e)
+    console.error('Failed to init KrNodeEditor frontend', e)
   }
 })
 

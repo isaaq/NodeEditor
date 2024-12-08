@@ -63,10 +63,13 @@ export class ComfyWorkflowManager extends EventTarget {
 
   async loadWorkflows() {
     try {
-      const [files, _] = await Promise.all([
+      const [filesResp, _] = await Promise.all([
         api.listUserDataFullInfo('workflows'),
         this.workflowBookmarkStore?.loadBookmarks()
       ])
+
+      // 确保 filesResp 是一个数组
+      const files = Array.isArray(filesResp) ? filesResp : []
 
       files.forEach((file: UserDataFullInfo) => {
         let workflow = this.workflowLookup[file.path]
@@ -76,6 +79,7 @@ export class ComfyWorkflowManager extends EventTarget {
         }
       })
     } catch (error) {
+      console.error('Error loading workflows:', error)
       alert('Error loading workflows: ' + (error.message ?? error))
     }
   }
@@ -225,7 +229,7 @@ export class ComfyWorkflow {
   }
 
   async getWorkflowData() {
-    const resp = await api.getUserData('workflows/' + this.path)
+    const resp = await api.getUserData(this.path)
     if (resp.status !== 200) {
       alert(
         `Error loading workflow file '${this.path}': ${resp.status} ${resp.statusText}`

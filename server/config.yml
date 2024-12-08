@@ -1,0 +1,19 @@
+db: mongo
+ui: layui
+
+name: tahe_back
+ip: 192.168.31.139
+port: 9999
+
+mongo:
+  host: localhost
+  db: tahe
+  db_main: tahe
+
+redis:
+  host: 127.0.0.1 #192.168.0.111
+  pass: #xSport#112233@Aa
+
+# all=9, insert_update_del=3, update_del=2, del=1, none=0
+audit_level: 9
+log_err: 1

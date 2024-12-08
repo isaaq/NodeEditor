@@ -15,7 +15,7 @@ import '@comfyorg/litegraph/style.css'
 import '@/assets/css/style.css'
 import 'primeicons/primeicons.css'
 
-const ComfyUIPreset = definePreset(Aura, {
+const KrNodeEditorPreset = definePreset(Aura, {
   semantic: {
     primary: Aura['primitive'].blue
   }
@@ -28,7 +28,7 @@ app
   .use(router)
   .use(PrimeVue, {
     theme: {
-      preset: ComfyUIPreset,
+      preset: KrNodeEditorPreset,
       options: {
         prefix: 'p',
         cssLayer: {

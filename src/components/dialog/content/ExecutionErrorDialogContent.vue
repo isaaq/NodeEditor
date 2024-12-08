@@ -53,7 +53,7 @@ const props = defineProps<{
 }>()
 
 const repoOwner = 'comfyanonymous'
-const repoName = 'ComfyUI'
+const repoName = 'KrNodeEditor'
 const reportContent = ref('')
 const reportOpen = ref(false)
 const showReport = () => {
@@ -91,7 +91,7 @@ const generateReport = (systemStats: SystemStats, logs: string) => {
       : workflowJSONString
 
   reportContent.value = `
-# ComfyUI Error Report
+# KrNodeEditor Error Report
 ## Error Details
 - **Node Type:** ${props.error.node_type}
 - **Exception Type:** ${props.error.exception_type}
@@ -101,7 +101,7 @@ const generateReport = (systemStats: SystemStats, logs: string) => {
 ${props.error.traceback.join('\n')}
 \`\`\`
 ## System Information
-- **ComfyUI Version:** ${systemStats.system.comfyui_version}
+- **KrNodeEditor Version:** ${systemStats.system.comfyui_version}
 - **Arguments:** ${systemStats.system.argv.join(' ')}
 - **OS:** ${systemStats.system.os}
 - **Python Version:** ${systemStats.system.python_version}

@@ -43,13 +43,13 @@ const coreVersion = computed(
 
 const links = computed(() => [
   {
-    label: `ComfyUI ${coreVersion.value}`,
-    url: 'https://github.com/comfyanonymous/ComfyUI',
+    label: `KrNodeEditor ${coreVersion.value}`,
+    url: 'https://github.com/comfyanonymous/KrNodeEditor',
     icon: 'pi pi-github'
   },
   {
-    label: `ComfyUI_frontend v${frontendVersion}`,
-    url: 'https://github.com/Comfy-Org/ComfyUI_frontend',
+    label: `KrNodeEditor_frontend v${frontendVersion}`,
+    url: 'https://github.com/Comfy-Org/KrNodeEditor_frontend',
     icon: 'pi pi-github'
   },
   {

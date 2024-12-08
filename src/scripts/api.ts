@@ -113,9 +113,8 @@ class ComfyApi extends EventTarget {
     if (existingSession) {
       existingSession = '?clientId=' + existingSession
     }
-    this.socket = new WebSocket(
-      `ws${window.location.protocol === 'https:' ? 's' : ''}://${this.api_host}${this.api_base}/ws${existingSession}`
-    )
+    // 直接连接到 3001 端口的 WebSocket 服务器
+    this.socket = new WebSocket(`ws://localhost:3001/ws${existingSession}`)
     this.socket.binaryType = 'arraybuffer'
 
     this.socket.addEventListener('open', () => {
